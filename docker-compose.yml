@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   web:
+    container_name: web
     build: .
     command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     volumes:
@@ -17,6 +18,7 @@ services:
       - web-db
 
   web-db:
+    container_name: web-db
     build:
       context: ./db
       dockerfile: Dockerfile
