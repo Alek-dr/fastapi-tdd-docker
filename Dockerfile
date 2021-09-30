@@ -15,8 +15,9 @@ RUN apt-get update \
 
 # install python dependencies
 COPY poetry.lock pyproject.toml ./
-RUN pip install poetry
-RUN poetry config virtualenvs.create false && poetry install
+RUN pip install poetry \
+    && poetry config virtualenvs.create false \
+    && poetry install
 
 # add app
 COPY . .
