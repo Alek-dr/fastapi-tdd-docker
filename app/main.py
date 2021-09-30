@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI
 
-from app.api import ping
+from app.api import ping, summaries
 from app.db import init_db
 
 log = logging.getLogger("uvicorn")
@@ -11,6 +11,7 @@ log = logging.getLogger("uvicorn")
 def create_application() -> FastAPI:
     application = FastAPI()
     application.include_router(ping.router)
+    application.include_router(summaries.router, prefix="/summaries", tags=["summaries"])
 
     return application
 
@@ -27,3 +28,11 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     log.info("Shutting down...")
+
+
+"""
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"url":"http://testdriven.io"}' \
+   http://localhost:8004/summaries/
+"""
