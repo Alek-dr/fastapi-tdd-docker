@@ -50,7 +50,7 @@ jobs:
           docker build \
             --cache-from ${{ env.IMAGE }}:latest \
             --tag ${{ env.IMAGE }}:latest \
-            --file Dockerfile.prod \
+            --file Dockerfile.test \
             "."
       - name: Run container
         run: |
